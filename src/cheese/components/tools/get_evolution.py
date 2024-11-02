@@ -10,7 +10,7 @@ from langchain_core.callbacks import (
 )
 from langchain_core.tools import BaseTool
 from pydantic import BaseModel
-from cheese.entity.input_tools import EvolutionInput
+from cheese.entity.config_tools import EvolutionToolConfig
 
 
 class EvolutionTool(BaseTool):
@@ -20,20 +20,23 @@ class EvolutionTool(BaseTool):
     return_direct: bool = None
 
     # New pydantic attribute
+    config: EvolutionToolConfig = None 
     logger: logging.Logger = None
+     
 
     def __init__(self, **data):
         super().__init__(**data)
+        self.config = EvolutionToolConfig()
+        self.description = self.config.description
+        self.args_schema = self.config.args_schema
+        self.return_direct = self.config.return_direct
+
         self.name = self.__class__.__name__
-        self.description = "This is a tool to give you a information of the evolution path of a certain pokemon"
-        self.args_schema = EvolutionInput
-        self.return_direct = True
         self.logger = logging.getLogger(self.__class__.__name__) 
-        self.logger.info(f"Tool initialized")
 
     def _run(self, pokemon_name: str, run_manager: Optional[CallbackManagerForToolRun] = None) -> list:
         """
-        Execute the tool logic
+        Run the tool logic
         """
         self.logger.info(f"Args: {pokemon_name.lower()}")
 
