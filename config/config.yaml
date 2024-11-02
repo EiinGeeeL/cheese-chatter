@@ -1,0 +1,16 @@
+package:
+  version: 0.1
+  repo_name: cheese-chatter
+  src_repo: cheese
+  author_email: aangel.maragones@outlook.com
+  author_user_name: eiingeeel
+  description: Cheese Chatter es una app LLM preparada para integrarse en un bot de Telegram.
+
+logging:
+  format: '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+  datefmt: '%Y-%m-%d %H:%M:%S'
+  log_file: 'cheese.log'
+
+ollama:
+  model: llama3.1
+  temperature: 0

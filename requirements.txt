@@ -1,0 +1,26 @@
+PyYAML
+fastapi
+uvicorn
+sse_starlette
+beautifulsoup4
+lark
+neo4j
+tensorflow
+mlflow
+numpy
+pandas
+matplotlib
+langserve
+langchain
+langchain-community
+langchain_experimental
+langchain_chroma
+langchain-ollama
+langgraph
+ipywidgets
+evaluate
+tiktoken
+textstat 
+nltk
+rouge_score
+-e .
