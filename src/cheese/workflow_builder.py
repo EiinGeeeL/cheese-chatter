@@ -5,7 +5,6 @@ from langgraph.checkpoint.memory import MemorySaver
 
 from cheese.entity.config_stategraph import AgentState
 from cheese.components.edges.should_continue_edge import ShouldContinueEdge
-from cheese.entity.config_edge import ShouldContinueConfig
 from cheese.components.nodes.call_model_chained import call_model_chained
 from cheese.components.main_model_chained import tools
 
@@ -33,10 +32,15 @@ class WorkflowBuilder:
         self.workflow.add_edge(START, "cheeseagent")
         
         self.workflow.add_conditional_edges(
-            *ShouldContinueEdge(
-                config=ShouldContinueConfig
-                ).generate_conditional_edges()
-            )
+            "cheeseagent",
+            ShouldContinueEdge.edge,
+            {
+            # If `tools`, then we call the tool node.
+            "continue": "tools",
+            # Otherwise we finish.
+            "end": END,
+            }
+        )
 
         # We now add a normal edge from `tools` to `agent`.
         # This means that after `tools` is called, `agent` node is called next.

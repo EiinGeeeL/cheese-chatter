@@ -5,7 +5,7 @@ from langchain_core.prompts import (
 )
 from langchain_ollama import ChatOllama
 
-from cheese.components.tools.evolutiontool import EvolutionTool
+from cheese.components.tools.evolution_tool import EvolutionTool
 from cheese.utils.common import read_yaml
 from cheese.constants import *
 from cheese.config.config_history import history_template
