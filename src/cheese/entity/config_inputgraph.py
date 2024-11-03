@@ -1,5 +1,6 @@
 from pydantic import BaseModel, Field
 
+## InputChat of the graph and app
 class InputChat(BaseModel):
     """Input for the chat endpoint."""
 

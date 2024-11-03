@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 from pydantic import BaseModel, Field
 
-dataclass(frozen=True)
+## EvolutionToolInput
 class EvolutionToolInput(BaseModel):
     pokemon_name: str = Field(description="a pokemon name given by the user")
