@@ -40,6 +40,7 @@ Para ejecutar el proyecto, usa el siguiente comando:
 
 ## Estructura del repositorio
 
+```bash
 cheese-chatter/
 ├── main.py                # Archivo principal para ejecutar el proyecto
 ├── app.py                 # Archivo principal para ensamblar la app
@@ -79,3 +80,4 @@ cheese-chatter/
 │   ├── cheese_graph.png   # Imagen de la arquitectura principal de la aplicación
 │   └── models/            # Directorio para modelos generados en research
 └── logs/                  # Directorio para logs del proyecto
+```
