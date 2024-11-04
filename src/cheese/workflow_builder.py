@@ -30,7 +30,7 @@ class WorkflowBuilder:
         # Define the start edge
         self.workflow.add_edge(START, "cheeseagent")
     
-        self.workflow.add_conditional_edges(*ShouldContinueConditionalEdge().generate_conditional_edges())
+        self.workflow.add_conditional_edges(*ShouldContinueConditionalEdge().get())
 
         # This means that after `tools` is called, `agent` node is called next.
         self.workflow.add_edge("tools", "cheeseagent")

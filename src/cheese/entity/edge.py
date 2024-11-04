@@ -1,10 +1,10 @@
 from abc import ABC, abstractmethod
-from typing import Tuple, Dict, Callable, Any
+from typing import Tuple, Dict, Callable, Any, Union, Literal
 from langgraph.graph import StateGraph
 from cheese.utils.type_vars import ConfigDataclass
 
 
-class Edge(ABC):
+class StateEvaluator(ABC):
     @abstractmethod
     def condition(self, state: StateGraph) -> str:
         """
@@ -12,10 +12,20 @@ class Edge(ABC):
         """
         pass
 
-class ConditionalEdge(ABC):
-    node_source: str
-    node_path: str
-    callable: Edge.condition
+class Edge(ABC):
+    node_source: Union[str, Literal["START", "END"]] # TODO str will be Node.id
+    node_path: Union[str, Literal["START", "END"]] # TODO str will be Node.id
+
+    @abstractmethod
+    def get(self) -> Tuple[Any, Any]:
+        """
+        Returns a tuple with the node source and the node path
+        """
+        pass
+
+
+class ConditionalEdge(Edge):
+    callable: StateEvaluator.condition
     config: ConfigDataclass
     
     @abstractmethod
@@ -25,7 +35,7 @@ class ConditionalEdge(ABC):
         """
         pass
     @abstractmethod
-    def generate_conditional_edges(self) -> Tuple[str, Callable[..., Any], Dict[str, Any]]:
+    def get(self) -> Tuple[str, Callable[..., Any], Dict[str, Any]]:
         """
         Returns a tuple containing:
         - A string representing the source node

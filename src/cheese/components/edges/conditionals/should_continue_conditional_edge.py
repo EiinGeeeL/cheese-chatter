@@ -1,14 +1,9 @@
 from typing import Any, Callable, Dict, Tuple
 from langgraph.graph import END
-from cheese.entity.edge import ConditionalEdge, Edge
+from cheese.entity.edge import ConditionalEdge
 from cheese.entity.dataclasses.conditional_edge_config import ShouldContinueConfig
 
 class ShouldContinueConditionalEdge(ConditionalEdge):
-    node_source: str
-    node_path: str
-    callable: Edge.condition
-    config: ShouldContinueConfig
-
     def __init__ (self):
         self.config = ShouldContinueConfig()
         self.node_source = self.config.node_source
@@ -26,5 +21,5 @@ class ShouldContinueConditionalEdge(ConditionalEdge):
         
         return mapping_dict
         
-    def generate_conditional_edges(self) -> Tuple[str, Callable[..., Any], Dict[str, Any]]:
+    def get(self) -> Tuple[str, Callable[..., Any], Dict[str, Any]]:
         return (self.node_source, self.callable, self._configure_mapping_dict())

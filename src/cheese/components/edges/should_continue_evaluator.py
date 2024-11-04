@@ -1,7 +1,7 @@
 from langgraph.graph import StateGraph
-from cheese.entity.edge import Edge
+from cheese.entity.edge import StateEvaluator
 
-class ShouldContinueEdge(Edge):
+class ShouldContinueEvaluator(StateEvaluator):
     def condition(self, state: StateGraph) -> str:
         messages = state["messages"]
         last_message = messages[-1]

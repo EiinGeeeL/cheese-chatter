@@ -1,5 +1,5 @@
-from cheese.components.edges.should_continue_edge import ShouldContinueEdge
-from cheese.entity.edge import Edge
+from cheese.components.edges.should_continue_evaluator import ShouldContinueEvaluator
+from cheese.entity.edge import StateEvaluator
 from dataclasses import dataclass
 
 ## ShouldContinueConfig
@@ -7,4 +7,4 @@ from dataclasses import dataclass
 class ShouldContinueConfig:
     node_source: str = 'cheeseagent'
     node_path: str = 'tools'
-    callable: Edge.condition = ShouldContinueEdge().condition
+    callable: StateEvaluator.condition = ShouldContinueEvaluator().condition
