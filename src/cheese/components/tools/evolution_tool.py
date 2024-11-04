@@ -10,7 +10,7 @@ from langchain_core.callbacks import (
 )
 from langchain_core.tools import BaseTool
 from pydantic import BaseModel
-from cheese.entity.config_tools import EvolutionToolConfig
+from cheese.entity.dataclasses.evolution_tool_config import EvolutionToolConfig
 
 
 class EvolutionTool(BaseTool):
@@ -19,7 +19,7 @@ class EvolutionTool(BaseTool):
     args_schema: Type[BaseModel] = None
     return_direct: bool = None
 
-    # New pydantic attribute
+    # New pydantic attributes
     config: EvolutionToolConfig = None 
     logger: logging.Logger = None
      

@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from pydantic import BaseModel
 from typing import Type
-from cheese.entity.config_input_tools import EvolutionToolInput
+from cheese.entity.models.evolution_tool_input import EvolutionToolInput
 
 ## EvolutionToolConfig
 @dataclass(frozen=True)

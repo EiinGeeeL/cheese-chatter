@@ -4,12 +4,11 @@ from langchain_core.prompts import (
     MessagesPlaceholder,
 )
 from langchain_ollama import ChatOllama
-
 from cheese.components.tools.evolution_tool import EvolutionTool
 from cheese.utils.common import read_yaml
 from cheese.constants import *
-from cheese.config.config_history import history_template
-from cheese.config.config_prompting import system_template
+from cheese.config.history_config import history_template
+from cheese.config.prompting_config import system_template
 # %%
 ## Model Configuration
 config = read_yaml(CONFIG_FILE_PATH)
