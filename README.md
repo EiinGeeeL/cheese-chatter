@@ -60,16 +60,16 @@ cheese-chatter/
 │       │   ├── common.py
 │       │   ├── logger.py
 │       │   └── type_vars.py
-│       ├── config/        # Contiene scripts de configuración del LLMs
-│       │   └── prompt/    # Contiene los prompts.txt de configuración
-│       ├── pipeline/      # Contiene scripts del pipeline de procesamiento complejas
-│       ├── entity/        # Contiene entidades del proyecto
+│       ├── config/                  # Contiene scripts de configuración del LLMs
+│       │   └── prompt/              # Contiene los prompts.txt de configuración
+│       ├── pipeline/                # Contiene scripts del pipeline de procesamiento complejas
+│       ├── entity/                  # Contiene entidades del proyecto
 │       │   ├── dataclasses/         # Contiene datacasses de configuración
 │       │   ├── models/              # Contiene modelos de estructura de datos del proyectp
 │       │   ├── node.py              # Contiene las entidades principales asociados a los nodos
 │       │   └── edge.py              # Contiene las entidades principales asociados a los edge
 │       └── constants/
-│           └── __init__.py       # Contiene las constantes del proyecto
+│           └── __init__.py          # Contiene las constantes del proyecto
 ├── config/
 │   └── config.yaml        # Archivos de configuración principal
 ├── research/              # Directorio para scripts y ipynb de experimentación
