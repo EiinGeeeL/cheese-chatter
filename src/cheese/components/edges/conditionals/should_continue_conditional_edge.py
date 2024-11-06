@@ -10,13 +10,10 @@ class ShouldContinueConditionalEdge(ConditionalEdge):
         self.node_path = self.config.node_path
         self.callable = self.config.callable
 
-
     def _configure_mapping_dict(self) -> dict:
         mapping_dict = {
-            # If `tools`, then we call the tool node.
-            "continue": self.node_path,
-            # Otherwise we finish.
-            "end": END,
+            "continue": self.node_path, # If `tools`, then we call the tool node.
+            "end": END, # Otherwise we finish.
             }
         
         return mapping_dict

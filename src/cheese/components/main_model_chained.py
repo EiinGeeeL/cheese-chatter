@@ -44,7 +44,7 @@ prompt_template = ChatPromptTemplate.from_messages([
 
 # %%
 # Define tools
-tools = [EvolutionTool()]
+tools = [EvolutionTool()] # TODO A BASETOOLS MANAGER
 
 # Bind tools to the model
 model_with_tools = model.bind_tools(tools)

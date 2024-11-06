@@ -13,28 +13,47 @@ class StateEvaluator(ABC):
         pass
 
 class Edge(ABC):
-    node_source: Union[str, Literal["START", "END"]] # TODO str will be Node.id
-    node_path: Union[str, Literal["START", "END"]] # TODO str will be Node.id
+    def __init__(
+            self, 
+            node_source: Union[str, Literal["START","END"]], 
+            node_path: Union[str, Literal["START","END"]]
+        ):
+        self.node_source = node_source
+        self.node_path = node_path
 
     @abstractmethod
-    def get(self) -> Tuple[Any, Any]:
+    def get(self) -> Union[Tuple[Any, Any], Tuple[Any, Any, Any]]:
         """
-        Returns a tuple with the node source and the node path
+        Returns the argumentos to add simple edges or conditios
         """
         pass
 
+class SimpleEdge(Edge):
+    def get(self) -> Tuple[str, str]:
+        """
+        Returns a tuple with node source and node path.
+        """
+        return (self.node_source, self.node_path)
 
 class ConditionalEdge(Edge):
-    callable: StateEvaluator.condition
-    config: ConfigDataclass
-    
+    def __init__(
+        self, 
+        node_source: Union[str, Literal["START", "END"]], 
+        node_path: Union[str, Literal["START", "END"]],
+        callable: StateEvaluator.condition,
+        config: ConfigDataclass
+    ):
+        super().__init__(node_source, node_path)
+        self.callable = callable
+        self.config = config
+
     @abstractmethod
-    def _configure_mapping_dict(self) -> dict:
+    def _configure_mapping_dict(self) -> Dict[str, Any]:
         """
-        Define edges conditions between the source node and the path node after the start node is called.
+        Define edges conditions between the source node and the path node.
         """
         pass
-    @abstractmethod
+    
     def get(self) -> Tuple[str, Callable[..., Any], Dict[str, Any]]:
         """
         Returns a tuple containing:
@@ -42,4 +61,5 @@ class ConditionalEdge(Edge):
         - A function (any callable) to apply as conditional edge
         - A dictionary with conditions between the nodes
         """
-        pass
+        return (self.node_source, self.callable, self._configure_mapping_dict())
+

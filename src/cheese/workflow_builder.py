@@ -4,6 +4,8 @@ from langgraph.prebuilt import ToolNode
 from langgraph.checkpoint.memory import MemorySaver
 
 from cheese.entity.models.stategraph import AgentState
+from cheese.entity.edge import SimpleEdge
+from cheese.pipeline.managers.edge_manager import EdgeManager
 from cheese.components.edges.conditionals.should_continue_conditional_edge import ShouldContinueConditionalEdge
 from cheese.components.nodes.call_model_chained import call_model_chained
 from cheese.components.main_model_chained import tools
@@ -12,41 +14,57 @@ from cheese.components.main_model_chained import tools
 class WorkflowBuilder:
     def __init__(self):
         self.workflow = StateGraph(AgentState)
-        # self.tools = tools # list # TODO define type
+        # self.tools = tools # list # TODO BASETOOL MANAGER
         self.memory = MemorySaver()
         self.tool_node = ToolNode(tools)
+        self.edge_manager = EdgeManager()
+        self.node_manager = None # TODO
     
     # def _configure_toolnode(self):
     #     self.tool_node = ToolNode(self.tools)
 
-    def _configure_workflow(self):
+
+    def _configure_nodes(self) -> None:
         """
-        Ensemble the graph worflow.
+        Fill and define the nodes.
         """
-        # Define the nodes
         self.workflow.add_node("cheeseagent", call_model_chained)
         self.workflow.add_node("tools", self.tool_node)
 
-        # Define the start edge
-        self.workflow.add_edge(START, "cheeseagent")
-    
-        self.workflow.add_conditional_edges(*ShouldContinueConditionalEdge().get())
+    def _configure_edges(self) -> None:
+        """
+        Fill and define the edges.
+        """
+        edge1 = SimpleEdge(START, "cheeseagent") # Start edge
+        edge2 = SimpleEdge("tools", "cheeseagent") # This means that after `tools` is called, `agent` node is called next.
+        edge3 = ShouldContinueConditionalEdge()
 
-        # This means that after `tools` is called, `agent` node is called next.
-        self.workflow.add_edge("tools", "cheeseagent")
+        # fill the edge manager
+        self.edge_manager.add_edges(edges=[edge1, edge2, edge3])
 
-    
-    def compile(self):
+    def _configure_workflow(self) -> None:
+        """
+        Ensemble the graph workflow.
+        """
+        # Configure the nodes
+        self._configure_nodes()
+
+        # Configure the edges
+        self._configure_edges()
+        edges, conditional_edges = self.edge_manager.get_edges()
+        [self.workflow.add_edge(*edge.get()) for edge in edges]
+        [self.workflow.add_conditional_edges(*cond_edge.get()) for cond_edge in conditional_edges]
+
+    def compile(self) -> StateGraph:
         """
         Compiled the workflow into a graph.
         """
-        # Finally, we compile it,
-        # meaning you can use it as you would any other runnable
         self._configure_workflow()
+        # Finally, we compile it to use it as runnable
         return self.workflow.compile(checkpointer=self.memory)
     
 
-    def display_graph(self, save: bool = False, filepath: str = "graph.png"):
+    def display_graph(self, save: bool = False, filepath: str = "graph.png") -> Image:
         """
         Display the compiled graph or save as a PNG image.
         """
