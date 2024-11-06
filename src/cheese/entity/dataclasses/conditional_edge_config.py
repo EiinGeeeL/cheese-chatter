@@ -1,4 +1,4 @@
-from cheese.components.edges.should_continue_evaluator import ShouldContinueEvaluator
+from cheese.components.edges.evaluators.should_continue_evaluator import ShouldContinueEvaluator
 from cheese.entity.edge import StateEvaluator
 from dataclasses import dataclass
 
