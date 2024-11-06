@@ -7,4 +7,4 @@ from dataclasses import dataclass
 class ShouldContinueConfig:
     node_source: str = 'cheeseagent'
     node_path: str = 'tools'
-    callable: StateEvaluator.condition = ShouldContinueEvaluator().condition
+    callable: StateEvaluator = ShouldContinueEvaluator().condition

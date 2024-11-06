@@ -4,7 +4,7 @@ from langgraph.prebuilt import ToolNode
 from langgraph.checkpoint.memory import MemorySaver
 
 from cheese.entity.models.stategraph import AgentState
-from cheese.entity.edge import SimpleEdge
+from cheese.entity.edge import SimpleEdge, ConditionalEdge
 from cheese.pipeline.managers.edge_manager import EdgeManager
 from cheese.components.edges.conditionals.should_continue_conditional_edge import ShouldContinueConditionalEdge
 from cheese.components.nodes.call_model_chained import call_model_chained
@@ -37,7 +37,7 @@ class WorkflowBuilder:
         """
         edge1 = SimpleEdge(START, "cheeseagent") # Start edge
         edge2 = SimpleEdge("tools", "cheeseagent") # This means that after `tools` is called, `agent` node is called next.
-        edge3 = ShouldContinueConditionalEdge()
+        edge3 = ShouldContinueConditionalEdge() # ConditionalEdge
 
         # fill the edge manager
         self.edge_manager.add_edges(edges=[edge1, edge2, edge3])
@@ -51,9 +51,8 @@ class WorkflowBuilder:
 
         # Configure the edges
         self._configure_edges()
-        edges, conditional_edges = self.edge_manager.get_edges()
-        [self.workflow.add_edge(*edge.get()) for edge in edges]
-        [self.workflow.add_conditional_edges(*cond_edge.get()) for cond_edge in conditional_edges]
+        [self.workflow.add_edge(*edge.get()) for edge in self.edge_manager.get_edges(filter_type=SimpleEdge)]
+        [self.workflow.add_conditional_edges(*cond_edge.get()) for cond_edge in self.edge_manager.get_edges(filter_type=ConditionalEdge)]
 
     def compile(self) -> StateGraph:
         """

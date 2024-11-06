@@ -40,7 +40,7 @@ class ConditionalEdge(Edge):
         self, 
         node_source: Union[str, Literal["START", "END"]], 
         node_path: Union[str, Literal["START", "END"]],
-        callable: StateEvaluator.condition,
+        callable: StateEvaluator,
         config: ConfigDataclass
     ):
         super().__init__(node_source, node_path)

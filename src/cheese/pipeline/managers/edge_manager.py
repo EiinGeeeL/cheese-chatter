@@ -1,10 +1,9 @@
-from typing import Union, Tuple, List
+from typing import Union, Set, List, Type
 from cheese.entity.edge import SimpleEdge, ConditionalEdge
 
 class EdgeManager:
     def __init__(self):
-        self.edges: set[SimpleEdge] = set()
-        self.conditional_edges: set[ConditionalEdge] = set()
+        self.edges: set[Union[SimpleEdge, ConditionalEdge]] = set()
 
     def add_edges(self, edges: List[Union[SimpleEdge, ConditionalEdge]]) -> None:
         """
@@ -13,20 +12,20 @@ class EdgeManager:
         """
 
         for e in edges:
-            if isinstance(e, SimpleEdge):
+            if isinstance(e, (SimpleEdge, ConditionalEdge)):
                 self.edges.add(e)
-            elif isinstance(e, ConditionalEdge):
-                self.conditional_edges.add(e)
             else:
                 raise TypeError("Each edge must be a SimpleEdge or ConditionalEdge")
 
-    def get_edges(self) -> Tuple[set[SimpleEdge], set[ConditionalEdge]]:
+    
+    def get_edges(self, filter_type: Union[Type[SimpleEdge], Type[ConditionalEdge], None] = None) -> Union[Set[Union[SimpleEdge, ConditionalEdge]], Set[SimpleEdge], Set[ConditionalEdge]]:
         """
-        Retrieve both sets of edges.
+        Retrieve your edges, optionally filtered by type.
+        """
+        if filter_type is None:
+            return self.edges
+        elif issubclass(filter_type, (SimpleEdge, ConditionalEdge)):
+            return {edge for edge in self.edges if isinstance(edge, filter_type)}
+        else:
+            raise TypeError("your filter type not identify")
 
-        Returns:
-            Tuple[set[SimpleEdge], set[ConditionalEdge]]: A tuple containing two sets:
-                - The set of regular edges
-                - The set of conditional edges
-        """
-        return (self.edges, self.conditional_edges)
