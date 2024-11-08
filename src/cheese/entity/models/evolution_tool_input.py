@@ -1,5 +1,8 @@
 from pydantic import BaseModel, Field
 
-## EvolutionToolInput
+
 class EvolutionToolInput(BaseModel):
+    """
+    Input for the EvolutionTool
+    """
     pokemon_name: str = Field(description="a pokemon name given by the user")

@@ -52,7 +52,8 @@ cheese-chatter/
 │   └── cheese/
 │       ├── components/
 │       │   ├── nodes/
-│       │   ├── edges/               # Contiene EvaluatorCondition
+│       │   ├── edges/
+│       │   │   ├── evaluators/      # Contiene StateEvaluator para conditional edges
 │       │   │   └── conditionals/    # Contiene ConditionalEdge
 │       │   ├── tools/               # Contiene BaseTool
 │       │   └──...
@@ -67,7 +68,7 @@ cheese-chatter/
 │       │   └── services/            # Contiene servicios
 │       ├── entity/
 │       │   ├── dataclasses/         # Contiene dataclasses de configuración
-│       │   ├── models/              # Contiene modelos de estructura de datos del proyectp
+│       │   ├── models/              # Contiene modelos de estructura
 │       │   ├── node.py              # Contiene las entidades principales asociados a los nodos
 │       │   └── edge.py              # Contiene las entidades principales asociados a los edge
 │       └── constants/

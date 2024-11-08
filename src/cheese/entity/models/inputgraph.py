@@ -1,8 +1,8 @@
 from pydantic import BaseModel, Field
 
-## InputChat of the graph and app
+
 class InputGraph(BaseModel):
-    """Input for the chat endpoint."""
+    """Input for the chat endpoint that start the graph workflow."""
 
     messages: list = Field(
         ...,

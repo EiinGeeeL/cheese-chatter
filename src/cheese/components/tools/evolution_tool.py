@@ -14,12 +14,13 @@ from cheese.entity.dataclasses.evolution_tool_config import EvolutionToolConfig
 
 
 class EvolutionTool(BaseTool):
+    # BaseTool atributes
     name: str = None
     description: str = None
     args_schema: Type[BaseModel] = None
     return_direct: bool = None
 
-    # New pydantic attributes
+    # New BaseTool attributes
     config: EvolutionToolConfig = None 
     logger: logging.Logger = None
      
@@ -34,7 +35,7 @@ class EvolutionTool(BaseTool):
         self.name = self.__class__.__name__
         self.logger = logging.getLogger(self.__class__.__name__) 
 
-    def _run(self, pokemon_name: str, run_manager: Optional[CallbackManagerForToolRun] = None) -> list:
+    def _run(self, pokemon_name: str, run_manager: Optional[CallbackManagerForToolRun] = None) -> list[str]:
         """
         Run the tool logic
         """

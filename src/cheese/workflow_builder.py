@@ -7,16 +7,16 @@ from cheese.entity.models.stategraph import AgentState
 from cheese.entity.edge import SimpleEdge, ConditionalEdge
 from cheese.pipeline.managers.edge_manager import EdgeManager
 from cheese.components.edges.conditionals.should_continue_conditional_edge import ShouldContinueConditionalEdge
-from cheese.components.nodes.call_model_chained import call_model_chained
-from cheese.components.main_model_chained import tools
-
+from cheese.components.nodes.enhancers.simple_invoke_enhancer import SimpleInvokeEnhancer
+from cheese.components.cheeseagent_runnable import CheeseAgent
+from cheese.entity.node import LangNode
+from cheese.components.tools.evolution_tool import EvolutionTool
 ## Graph Configuration
 class WorkflowBuilder:
     def __init__(self):
         self.workflow = StateGraph(AgentState)
         # self.tools = tools # list # TODO BASETOOL MANAGER
         self.memory = MemorySaver()
-        self.tool_node = ToolNode(tools)
         self.edge_manager = EdgeManager()
         self.node_manager = None # TODO
     
@@ -28,8 +28,11 @@ class WorkflowBuilder:
         """
         Fill and define the nodes.
         """
-        self.workflow.add_node("cheeseagent", call_model_chained)
-        self.workflow.add_node("tools", self.tool_node)
+
+        node1 = LangNode("cheeseagent", SimpleInvokeEnhancer(runnable=CheeseAgent()), CheeseAgent())
+        
+        self.workflow.add_node(*node1.get())
+        self.workflow.add_node("tools", ToolNode([EvolutionTool()]))
 
     def _configure_edges(self) -> None:
         """

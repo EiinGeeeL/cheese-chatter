@@ -1,5 +1,5 @@
-from dataclasses import dataclass
+from langchain_core.runnables import Runnable
 from typing import TypeVar
 
-# TypeVar for the config atributes of the entities
-ConfigDataclass = TypeVar('ConfigDataclass', bound=dataclass)
+# TypeVar for the basemodel atribute refering an any LLM runnable of LangChain
+LangModel = TypeVar('LangModel', bound=[Runnable])

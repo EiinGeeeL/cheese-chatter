@@ -1,16 +1,6 @@
 from abc import ABC, abstractmethod
 from typing import Tuple, Dict, Callable, Any, Union, Literal
-from langgraph.graph import StateGraph
-from cheese.utils.type_vars import ConfigDataclass
-
-
-class StateEvaluator(ABC):
-    @abstractmethod
-    def condition(self, state: StateGraph) -> str:
-        """
-        Returns a string as the result of the edge execution.
-        """
-        pass
+from cheese.entity.statehandler import StateEvaluator
 
 class Edge(ABC):
     def __init__(
@@ -40,12 +30,10 @@ class ConditionalEdge(Edge):
         self, 
         node_source: Union[str, Literal["START", "END"]], 
         node_path: Union[str, Literal["START", "END"]],
-        callable: StateEvaluator,
-        config: ConfigDataclass
+        evaluator: StateEvaluator,
     ):
         super().__init__(node_source, node_path)
-        self.callable = callable
-        self.config = config
+        self.evaluator = evaluator
 
     @abstractmethod
     def _configure_mapping_dict(self) -> Dict[str, Any]:
@@ -54,12 +42,12 @@ class ConditionalEdge(Edge):
         """
         pass
     
-    def get(self) -> Tuple[str, Callable[..., Any], Dict[str, Any]]:
+    def get(self) -> Tuple[str, Callable[..., StateEvaluator.evaluate], Dict[str, Any]]:
         """
         Returns a tuple containing:
         - A string representing the source node
         - A function (any callable) to apply as conditional edge
         - A dictionary with conditions between the nodes
         """
-        return (self.node_source, self.callable, self._configure_mapping_dict())
-
+        return (self.node_source, self.evaluator.evaluate, self._configure_mapping_dict())
+    
