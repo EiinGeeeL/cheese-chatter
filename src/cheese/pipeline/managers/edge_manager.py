@@ -1,5 +1,6 @@
-from typing import Union, Set, List, Type
+from typing import Union, Set, List, Type, Tuple, Callable, Dict
 from cheese.entity.edge import SimpleEdge, ConditionalEdge
+from cheese.entity.statehandler import StateEvaluator
 
 class EdgeManager:
     def __init__(self):
@@ -11,13 +12,12 @@ class EdgeManager:
 
         """
 
-        for e in edges:
-            if isinstance(e, (SimpleEdge, ConditionalEdge)):
-                self.edges.add(e)
+        for edge in edges:
+            if isinstance(edge, (SimpleEdge, ConditionalEdge)):
+                self.edges.add(edge)
             else:
-                raise TypeError("Each edge must be a SimpleEdge or ConditionalEdge")
+                raise TypeError(f"Each edge must be a SimpleEdge or ConditionalEdge, got {type(edge)}")
 
-    
     def get_edges(self, filter_type: Union[Type[SimpleEdge], Type[ConditionalEdge], None] = None) -> Union[Set[Union[SimpleEdge, ConditionalEdge]], Set[SimpleEdge], Set[ConditionalEdge]]:
         """
         Retrieve your edges, optionally filtered by type.
@@ -25,7 +25,24 @@ class EdgeManager:
         if filter_type is None:
             return self.edges
         elif issubclass(filter_type, (SimpleEdge, ConditionalEdge)):
-            return {edge for edge in self.edges if isinstance(edge, filter_type)}
+            return {edge for edge in self.edges if type(edge) == filter_type}
         else:
-            raise TypeError("your filter type not identify")
+            raise TypeError(f"Each edge must be a SimpleEdge or ConditionalEdge, expected {type(filter_type)}")
 
+    def configs_edges(self) -> Tuple[Tuple[str, str]]:
+        """
+        Returns a tuple with node source and node path.
+        """
+        return ((edge.node_source, edge.node_path) 
+                for edge in self.edges if type(edge) == SimpleEdge)
+    
+
+    def configs_conditional_edges(self) -> Tuple[Tuple[str, Callable[..., StateEvaluator.evaluate], Dict[str, str]]]:
+        """
+        Returns a configs containing:
+        - A string representing the source node
+        - A function (any callable) to apply as conditional edge
+        - A dictionary with conditions between the nodes
+        """
+        return ((edge.node_source, edge.evaluator.evaluate, edge.map_dict) 
+                for edge in self.edges if type(edge) != SimpleEdge)

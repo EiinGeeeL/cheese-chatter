@@ -9,8 +9,9 @@ from langchain_core.callbacks import (
     CallbackManagerForToolRun,
 )
 from langchain_core.tools import BaseTool
-from pydantic import BaseModel
-from cheese.entity.dataclasses.evolution_tool_config import EvolutionToolConfig
+from pydantic import BaseModel, SkipValidation
+from cheese.config.config_manager import ConfigManager as CM
+
 
 
 class EvolutionTool(BaseTool):
@@ -21,20 +22,17 @@ class EvolutionTool(BaseTool):
     return_direct: bool = None
 
     # New BaseTool attributes
-    config: EvolutionToolConfig = None 
-    logger: logging.Logger = None
+    config: SkipValidation[CM.EvolutionToolConfig] = CM.EvolutionToolConfig 
+    logger: SkipValidation[logging.Logger] = logging.getLogger(__name__.split('.')[-1])
      
-
     def __init__(self, **data):
         super().__init__(**data)
-        self.config = EvolutionToolConfig()
+        self.name = self.__class__.__name__
         self.description = self.config.description
         self.args_schema = self.config.args_schema
         self.return_direct = self.config.return_direct
-
-        self.name = self.__class__.__name__
-        self.logger = logging.getLogger(self.__class__.__name__) 
-
+        
+        
     def _run(self, pokemon_name: str, run_manager: Optional[CallbackManagerForToolRun] = None) -> list[str]:
         """
         Run the tool logic

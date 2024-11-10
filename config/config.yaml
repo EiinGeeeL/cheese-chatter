@@ -14,3 +14,6 @@ logging:
 ollama:
   model: llama3.1
   temperature: 0
+  embeddings: llama3.1
+  quick_model: None
+  multimodal: None

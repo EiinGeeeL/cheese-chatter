@@ -2,13 +2,13 @@ from abc import ABC, abstractmethod
 from typing import List, Any
 from langchain_core.runnables import Runnable
 from langchain_core.tools import BaseTool
-from cheese.utils.type_vars import LangModel
+from cheese.pipeline.services.llm_services import LLMServices
 
 
-class LangRunnable(ABC):
+class RunnableBuilder(ABC):
     def __init__(
         self,
-        model: LangModel,
+        model: LLMServices,
         vectordb: Any, # TODO define class 
         tools: List[BaseTool],
     ):

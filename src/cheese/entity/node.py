@@ -1,20 +1,11 @@
-from typing import Tuple, Callable
 from cheese.entity.statehandler import StateEnhancer
-from cheese.entity.langrunnable import LangRunnable
 
-class LangNode:
+class SimpleNode:
     def __init__(
-        self, 
-        id: str,
-        enhancer: StateEnhancer,
-        runnable: LangRunnable,
+        self,
+        enhancer: StateEnhancer, 
+        name: str,
+        
     ):
-        self.id = id
         self.enhancer = enhancer
-        self.runnable = runnable.get()
-
-    def get_runnable(self) -> LangRunnable:
-        return self.runnable
-
-    def get(self) -> Tuple[str, Callable[..., StateEnhancer]]:
-        return (self.id, self.enhancer.enhance)
+        self.name = name

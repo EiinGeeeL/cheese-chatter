@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
 from langgraph.graph import StateGraph
-from cheese.entity.langrunnable import LangRunnable
+from cheese.entity.runnable_builder import RunnableBuilder
+
 
 class StateEvaluator(ABC):
     @abstractmethod
@@ -14,12 +15,12 @@ class StateEvaluator(ABC):
 class StateEnhancer(ABC): 
     def __init__(
             self,
-            runnable: LangRunnable
+            runnable_builder: RunnableBuilder
         ):
-        self.runnable = runnable
+        self.runnable = runnable_builder.get()
     @abstractmethod
     def enhance(self, state: StateGraph) -> dict[str, list]:
         """
-        Returns state with modifications made by a LangRunnable.
+        Returns state with modifications made by a Runnable.
         """
         pass

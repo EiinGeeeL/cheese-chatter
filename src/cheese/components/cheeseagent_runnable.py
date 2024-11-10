@@ -1,19 +1,26 @@
+import logging
 from langchain_core.prompts import (
     ChatPromptTemplate, 
     FewShotChatMessagePromptTemplate, 
     MessagesPlaceholder,
 )
 from langchain_core.runnables import Runnable
-from cheese.config.history_config import history_template
-from cheese.config.prompting_config import system_template
-from cheese.entity.langrunnable import LangRunnable
-from cheese.entity.dataclasses.langrunnables_config import CheeseAgentConfig
- 
+from cheese.config.cheeseagent.history_config import history_template
+from cheese.config.cheeseagent.prompting_config import system_template
+from cheese.entity.runnable_builder import RunnableBuilder
+from cheese.config.config_manager import ConfigManager as CM
 
-class CheeseAgent(LangRunnable):
+# TODO THIS TO SOLVE THE CIRCULAR IMPORT
+from cheese.components.tools.evolution_tool import EvolutionTool
+
+
+class CheeseAgent(RunnableBuilder):
+    config: CM.CheeseAgentConfig = CM.CheeseAgentConfig
+    logger: logging.Logger = logging.getLogger(__name__.split('.')[-1])
+
     def __init__ (self):
-        self.model = CheeseAgentConfig.model
-        self.tools = CheeseAgentConfig.tools
+        self.model = self.config.model
+        self.tools = [EvolutionTool()] # self.config.tools # TODO TO SOLVE
         self._chain = None
 
     def _configure_chain(self) -> Runnable:
