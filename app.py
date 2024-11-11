@@ -20,9 +20,10 @@ app = FastAPI(
     description=config['package']['description'],
 )
 
-graph = WorkflowBuilder().compile() # compile the graph
-
-WorkflowBuilder().display_graph(save=True, filepath="artifacts/cheese_graph.png")
+## Workflow Configuration
+workflow_builder = WorkflowBuilder() 
+graph = workflow_builder.compile() # compile the graph
+workflow_builder.display_graph(save=True, filepath="artifacts/cheese_graph.png")
 
 add_routes(
     app,

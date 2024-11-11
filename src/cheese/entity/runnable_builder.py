@@ -10,7 +10,7 @@ class RunnableBuilder(ABC):
         self,
         model: LLMServices,
         vectordb: Any, # TODO define class 
-        tools: List[BaseTool],
+        tools: List[BaseTool]
     ):
         self.model = model
         self.vectordb: Any = vectordb
@@ -25,21 +25,25 @@ class RunnableBuilder(ABC):
         Configure the main chain and return it.
         """
         pass
+    
+    @property
+    def _get_chain(self) -> Runnable:
+        """
+        Lazily initialize and return the configured chain.
+        """
+        if self._chain is None:
+            self._chain = self._configure_chain()
+        return self._chain
 
 
     def invoke(self, message: str) -> str:
         """
         Invoke the chain.
         """
-        if self._chain is None:
-            self._chain = self._configure_chain()
-        return self._chain.invoke(message)
+        return self._get_chain.invoke(message)
         
     def get(self) -> Runnable:
         """
-        Return the chain configured.
+        Return the configured chain.
         """
-        if self._chain is None:
-            self._chain = self._configure_chain()
-        return self._chain
-    
+        return self._get_chain

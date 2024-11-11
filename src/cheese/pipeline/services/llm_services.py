@@ -1,11 +1,12 @@
 from langchain_ollama import ChatOllama, OllamaEmbeddings
+from langchain_core.runnables import Runnable
 from cheese.constants import *
 from cheese.utils.common import read_yaml
 
 class LLMServices:
     config = read_yaml(CONFIG_FILE_PATH)
 
-    model = ChatOllama(
+    model: Runnable = ChatOllama(
         model=config['ollama']['model'],
         temperature=config['ollama']['temperature'],
         # Add other parameters from config as needed

@@ -6,7 +6,8 @@ La aplicación construida en langchain-langgraph-langserver tiene la siguiente a
 
 ## Requisitos previos
 
-- Python 3.12.5 o superior
+- Python 3.12.5
+- Ollama 4.0 o superior
 - pip (gestor de paquetes de Python)
 
 ## Instalación
@@ -32,8 +33,13 @@ La aplicación construida en langchain-langgraph-langserver tiene la siguiente a
 
 ## Ejecución
 
-Para ejecutar el proyecto, usa el siguiente comando:
+Para ejecutar el proyecto:
 
+1. Ejecutar el servicio Ollama
+
+```ollama run llama3.1```
+
+2. Ejecutar la app LangServer
 
 ```py main.py```
 

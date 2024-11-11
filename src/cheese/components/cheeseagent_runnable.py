@@ -1,27 +1,25 @@
 import logging
+from typing import List
 from langchain_core.prompts import (
     ChatPromptTemplate, 
     FewShotChatMessagePromptTemplate, 
     MessagesPlaceholder,
 )
-from langchain_core.runnables import Runnable
 from cheese.config.cheeseagent.history_config import history_template
 from cheese.config.cheeseagent.prompting_config import system_template
 from cheese.entity.runnable_builder import RunnableBuilder
-from cheese.config.config_manager import ConfigManager as CM
-
-# TODO THIS TO SOLVE THE CIRCULAR IMPORT
-from cheese.components.tools.evolution_tool import EvolutionTool
+from cheese.pipeline.services.llm_services import LLMServices
+from langchain_core.runnables import Runnable
+from langchain_core.tools import BaseTool
 
 
 class CheeseAgent(RunnableBuilder):
-    config: CM.CheeseAgentConfig = CM.CheeseAgentConfig
     logger: logging.Logger = logging.getLogger(__name__.split('.')[-1])
 
-    def __init__ (self):
-        self.model = self.config.model
-        self.tools = [EvolutionTool()] # self.config.tools # TODO TO SOLVE
-        self._chain = None
+    def __init__(self, model: LLMServices, tools: List[BaseTool]):
+        super().__init__(model=model, vectordb=None, tools=tools)
+    
+        self.logger.info("CheeseAgent initialized")
 
     def _configure_chain(self) -> Runnable:
         # TODO few_shot with differents tasks

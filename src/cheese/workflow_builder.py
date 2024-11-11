@@ -1,73 +1,40 @@
+import logging
 from IPython.display import Image, display
-from langgraph.graph import END, StateGraph, START
-from langgraph.prebuilt import ToolNode
+from langgraph.graph import StateGraph
 from langgraph.checkpoint.memory import MemorySaver
+from cheese.config.config_manager import BASIC_EDGES, BASIC_NODES
 from cheese.entity.models.stategraph import AgentState
-from cheese.entity.edge import SimpleEdge, ConditionalEdge
 from cheese.pipeline.managers.edge_manager import EdgeManager
 from cheese.pipeline.managers.node_manager import NodeManager
-from cheese.entity.node import SimpleNode
-
-# TODO MOVE TO CONFIG
-from cheese.components.edges.evaluators.should_continue_evaluator import ShouldContinueEvaluator
-from cheese.components.nodes.enhancers.simple_invoke_enhancer import SimpleInvokeEnhancer
-from cheese.components.cheeseagent_runnable import CheeseAgent
-from cheese.components.tools.evolution_tool import EvolutionTool
-
 
 ## Graph Configuration
 class WorkflowBuilder:
+    logger: logging.Logger = logging.getLogger(__name__.split('.')[-1])
+    
     def __init__(self):
-        self.workflow = StateGraph(AgentState)
-        self.memory = MemorySaver()
-        self.edge_manager = EdgeManager()
-        self.node_manager = NodeManager()
-
-    def _configure_nodes(self) -> None:
-        """
-        Fill and define the nodes.
-        """
-        node1 = SimpleNode(
-            enhancer=SimpleInvokeEnhancer(CheeseAgent()),
-            name="cheeseagent",
-        )
+        self.workflow: StateGraph = StateGraph(AgentState)
+        self.memory: MemoryError = MemorySaver()
+        self.edge_manager: EdgeManager = EdgeManager()
+        self.node_manager:NodeManager = NodeManager()
         
-        node2 = ToolNode(
-            tools=[EvolutionTool()], 
-            name="cheesetools" ,
-        )
+        self.logger.info("WorkFlowBuilder initialized")
 
-
-        # fill the node manager
-        self.node_manager.add_nodes(nodes=[node1, node2])
-
-    def _configure_edges(self) -> None:
+    def compile(self) -> StateGraph:
+        self._configure_workflow()
+        return self.workflow.compile(checkpointer=self.memory)
+    
+    def display_graph(self, save: bool = False, filepath: str = "graph.png") -> Image:
         """
-        Fill and define the edges.
+        Display the compiled graph or save as a PNG image.
         """
-        # Start Edge
-        edge1 = SimpleEdge(
-            node_source=START, 
-            node_path="cheeseagent"
-        ) 
-        # This means that after `tools` is called, `agent` node is called next.
-        edge2 = SimpleEdge(
-            node_source="cheesetools", 
-            node_path="cheeseagent"
-        ) 
-        edge3 = ConditionalEdge(
-            evaluator=ShouldContinueEvaluator(),
-            map_dict={
-                "continue": "cheesetools", # If `tools`, then we call the tool node.
-                "end": END, # Otherwise we finish.
-            },
-            node_source="cheeseagent",
-            node_path="cheesetools",
-        )
+        img_data = self.workflow.compile().get_graph().draw_mermaid_png()
 
-        # fill the edge manager
-        self.edge_manager.add_edges(edges=[edge1, edge2, edge3])
-
+        if save:
+            with open(filepath, "wb") as f:
+                f.write(img_data)
+        else:
+            return display(Image(img_data))
+        
     def _configure_workflow(self) -> None:
         """
         Ensemble the graph workflow.
@@ -79,26 +46,21 @@ class WorkflowBuilder:
         # Configure the edges
         self._configure_edges()
         [self.workflow.add_edge(*config) for config in self.edge_manager.configs_edges()]
-        [self.workflow.add_conditional_edges(*config) for config in self.edge_manager.configs_conditional_edges()]
-
-    def compile(self) -> StateGraph:
-        """
-        Compiled the workflow into a graph.
-        """
-        self._configure_workflow()
-        # Finally, we compile it to use it as runnable
-        return self.workflow.compile(checkpointer=self.memory)
+        [self.workflow.add_conditional_edges(*config) for config in self.edge_manager.configs_conditional_edges()]  
     
-
-    def display_graph(self, save: bool = False, filepath: str = "graph.png") -> Image:
+    def _configure_nodes(self) -> None:
         """
-        Display the compiled graph or save as a PNG image.
+        Fill the nodes.
         """
-        img_data = self.compile().get_graph().draw_mermaid_png()
+        self.node_manager.add_nodes(nodes=BASIC_NODES)
 
-        if save:
-            with open(filepath, "wb") as f:
-                f.write(img_data)
-        else:
-            return display(Image(img_data))
+    def _configure_edges(self) -> None:
+        """
+        Fill the edges.
+        """        
+        self.edge_manager.add_edges(edges=BASIC_EDGES)
+
+  
+
+
 

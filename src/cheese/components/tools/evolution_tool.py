@@ -10,7 +10,7 @@ from langchain_core.callbacks import (
 )
 from langchain_core.tools import BaseTool
 from pydantic import BaseModel, SkipValidation
-from cheese.config.config_manager import ConfigManager as CM
+from cheese.entity.models.basetools import CustomBaseTool as CT
 
 
 
@@ -22,7 +22,7 @@ class EvolutionTool(BaseTool):
     return_direct: bool = None
 
     # New BaseTool attributes
-    config: SkipValidation[CM.EvolutionToolConfig] = CM.EvolutionToolConfig 
+    config: SkipValidation[CT.EvolutionToolConfig] = CT.EvolutionToolConfig 
     logger: SkipValidation[logging.Logger] = logging.getLogger(__name__.split('.')[-1])
      
     def __init__(self, **data):

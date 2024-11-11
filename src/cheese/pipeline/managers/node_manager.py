@@ -1,3 +1,4 @@
+import logging
 from typing import Set, List, Tuple, Union
 from langgraph.prebuilt import ToolNode
 from langchain_core.runnables import Runnable
@@ -5,8 +6,12 @@ from cheese.entity.node import SimpleNode
 from cheese.entity.statehandler import StateEnhancer
 
 class NodeManager:
+    logger: logging.Logger = logging.getLogger(__name__.split('.')[-1])
+    
     def __init__(self):
         self.nodes: Set[Union[SimpleNode, ToolNode]] = set()
+        
+        self.logger.info("NodeManager initialized")
 
     def add_nodes(self, nodes: Union[SimpleNode, ToolNode, List[Union[SimpleNode, ToolNode]]]) -> None:
         """

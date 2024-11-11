@@ -18,6 +18,7 @@ class StateEnhancer(ABC):
             runnable_builder: RunnableBuilder
         ):
         self.runnable = runnable_builder.get()
+        
     @abstractmethod
     def enhance(self, state: StateGraph) -> dict[str, list]:
         """
