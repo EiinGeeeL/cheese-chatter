@@ -18,7 +18,7 @@ class LLMServices:
 
     # quick_model = config['ollama']['quick_model']
 
-    #multimodal = config['ollama']['multimodal']
+    # multimodal = config['ollama']['multimodal']
 
     @classmethod
     def reinitialize(cls):

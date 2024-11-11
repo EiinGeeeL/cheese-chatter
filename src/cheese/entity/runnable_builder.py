@@ -13,7 +13,7 @@ class RunnableBuilder(ABC):
         tools: List[BaseTool]
     ):
         self.model = model
-        self.vectordb: Any = vectordb
+        self.vectordb = vectordb
         self.tools = tools
 
         # Start the chain

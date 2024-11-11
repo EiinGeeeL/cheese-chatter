@@ -2,7 +2,7 @@ import logging
 from IPython.display import Image, display
 from langgraph.graph import StateGraph
 from langgraph.checkpoint.memory import MemorySaver
-from cheese.config.config_manager import BASIC_EDGES, BASIC_NODES
+from cheese.config.config_manager import ConfigManager as CM
 from cheese.entity.models.stategraph import AgentState
 from cheese.pipeline.managers.edge_manager import EdgeManager
 from cheese.pipeline.managers.node_manager import NodeManager
@@ -14,8 +14,9 @@ class WorkflowBuilder:
     def __init__(self):
         self.workflow: StateGraph = StateGraph(AgentState)
         self.memory: MemoryError = MemorySaver()
+        self.config: CM = CM()
         self.edge_manager: EdgeManager = EdgeManager()
-        self.node_manager:NodeManager = NodeManager()
+        self.node_manager: NodeManager = NodeManager()
         
         self.logger.info("WorkFlowBuilder initialized")
 
@@ -50,15 +51,15 @@ class WorkflowBuilder:
     
     def _configure_nodes(self) -> None:
         """
-        Fill the nodes.
+        Fill the nodes in manager.
         """
-        self.node_manager.add_nodes(nodes=BASIC_NODES)
+        self.node_manager.add_nodes(nodes=self.config.get_nodes())
 
     def _configure_edges(self) -> None:
         """
-        Fill the edges.
+        Fill the edges in manager.
         """        
-        self.edge_manager.add_edges(edges=BASIC_EDGES)
+        self.edge_manager.add_edges(edges=self.config.get_edges())
 
   
 

@@ -41,7 +41,6 @@ class EdgeManager:
         return ((edge.node_source, edge.node_path) 
                 for edge in self.edges if type(edge) == SimpleEdge)
     
-
     def configs_conditional_edges(self) -> Tuple[Tuple[str, Callable[..., StateEvaluator.evaluate], Dict[str, str]]]:
         """
         Returns a configs containing:
