@@ -1,8 +1,11 @@
 import logging
+from dataclasses import is_dataclass
+from typing import Annotated
+from cheese.utils.type_vars import ConfigDataclass
 from IPython.display import Image, display
 from langgraph.graph import StateGraph
 from langgraph.checkpoint.memory import MemorySaver
-from cheese.config.config_manager import ConfigManager as CM
+from cheese.entity.graph_layout import GraphLayout
 from cheese.entity.models.stategraph import AgentState
 from cheese.pipeline.managers.edge_manager import EdgeManager
 from cheese.pipeline.managers.node_manager import NodeManager
@@ -11,10 +14,10 @@ from cheese.pipeline.managers.node_manager import NodeManager
 class WorkflowBuilder:
     logger: logging.Logger = logging.getLogger(__name__.split('.')[-1])
     
-    def __init__(self):
+    def __init__(self, config: Annotated[ConfigDataclass, is_dataclass]):
         self.workflow: StateGraph = StateGraph(AgentState)
         self.memory: MemoryError = MemorySaver()
-        self.config: CM = CM()
+        self.config: GraphLayout = GraphLayout(config)
         self.edge_manager: EdgeManager = EdgeManager()
         self.node_manager: NodeManager = NodeManager()
         

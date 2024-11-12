@@ -8,10 +8,9 @@ from cheese.components.nodes.enhancers.simple_invoke_enhancer import SimpleInvok
 from cheese.components.tools.evolution_tool import EvolutionTool
 from cheese.entity.edge import ConditionalEdge, SimpleEdge
 from cheese.entity.node import SimpleNode
-from cheese.entity.runnable_builder import RunnableBuilder
 
 @dataclass(frozen=True)
-class ConfigManager:
+class ConfigGraph:
     ## RUNNABLES BUILDERS
     CHEESE_AGENT = CheeseAgent(model=LLMServices.model,
                                tools=[EvolutionTool()])
@@ -37,33 +36,3 @@ class ConfigManager:
                                   },
                               node_source=_NODE_1.name,
                               node_path=_NODE_2.name)
-
-    def get_nodes(self):
-        """
-        Returns a list of all nodes settled as constans in the configuration.
-        """
-        return [
-            attr_value 
-            for _, attr_value in self.__class__.__dict__.items() 
-            if isinstance(attr_value, (SimpleNode, ToolNode))
-        ]
-
-    def get_edges(self):
-        """
-        Returns a list of all edges settled as constans in the configuration.
-        """
-        return [
-            attr_value 
-            for _, attr_value in self.__class__.__dict__.items() 
-            if isinstance(attr_value, SimpleEdge)
-        ]
-
-    def get_runnable_builders(self):
-        """
-        Returns a list of all runnable builders settled as constans in the configuration.
-        """
-        return [
-            attr_value 
-            for _, attr_value in self.__class__.__dict__.items() 
-            if isinstance(attr_value, RunnableBuilder)
-        ]

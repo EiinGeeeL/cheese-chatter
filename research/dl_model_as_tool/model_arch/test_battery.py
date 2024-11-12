@@ -63,6 +63,3 @@ params_binary_activation_loss_battery = {
     'optimizer': 'adam',
     'metrics': ['accuracy'],
 }
-
-
-# TODO: TEST DIFFERENTS IMAGE SIZE FACTOR AUGMENTATION AND OPTIMIZER TOO
