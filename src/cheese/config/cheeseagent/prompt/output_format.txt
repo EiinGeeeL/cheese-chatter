@@ -1,0 +1,15 @@
+# Formato de conversación
+strings
+
+---
+
+# Formato de resumen
+- Número total de mensajes analizados: [Número total de mensajes]
+- Temas tratados:
+    **[Tema general identificado]:**
+        - 'usuario1': [Resumen breve y claro del contenido enviado por 'usuario1' sobre este tema.]
+        - 'usuario2': [Resumen breve y claro del contenido enviado por 'usuario2' sobre este tema.]
+        - 'usuario3': [Resumen breve y claro del contenido enviado por 'usuario3' sobre este tema.]
+    **[Otro tema identificado]:**
+        - 'usuario4': [Resumen breve y claro del contenido enviado por 'usuario4' sobre este tema.]
+        - 'usuario5': [Resumen breve y claro del contenido enviado por 'usuario5' sobre este tema.]

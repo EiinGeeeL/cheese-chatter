@@ -7,8 +7,8 @@ from langgraph.graph import StateGraph
 from langgraph.checkpoint.memory import MemorySaver
 from cheese.entity.graph_layout import GraphLayout
 from cheese.entity.models.stategraph import AgentState
-from cheese.pipeline.managers.edge_manager import EdgeManager
-from cheese.pipeline.managers.node_manager import NodeManager
+from cheese.managers.edge_manager import EdgeManager
+from cheese.managers.node_manager import NodeManager
 
 ## Graph Configuration
 class WorkflowBuilder:

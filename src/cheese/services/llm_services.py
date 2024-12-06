@@ -16,7 +16,7 @@ class LLMServices:
         model=config['ollama']['embeddings'],
     )
 
-    # quick_model = config['ollama']['quick_model']
+    # turbo_model = config['ollama']['turbo_model']
 
     # multimodal = config['ollama']['multimodal']
 

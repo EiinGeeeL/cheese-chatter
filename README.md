@@ -69,11 +69,9 @@ cheese-chatter/
 │       │   └── type_vars.py
 │       ├── config/                  # Contiene scripts de configuración del LLMs
 │       │   └── prompt/              # Contiene los prompts.txt de configuración
-│       ├── pipeline/                
-│       │   ├── managers/            # Contiene managers clases
-│       │   └── services/            # Contiene servicios
+│       ├── managers/      # Contiene managers clases
+│       ├── services/      # Contiene servicios
 │       ├── entity/
-│       │   ├── dataclasses/         # Contiene dataclasses de configuración
 │       │   ├── models/              # Contiene modelos de estructura
 │       │   ├── node.py              # Contiene las entidades principales asociados a los nodos
 │       │   └── edge.py              # Contiene las entidades principales asociados a los edge

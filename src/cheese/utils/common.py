@@ -29,3 +29,14 @@ def read_yaml(path_to_yaml: Path) -> Optional[Dict]:
         raise yaml.YAMLError(f"Error parsing YAML file {e}")
     except Exception as e:
         raise Exception(f"An unexpected error occurred {e}")
+    
+def load_and_clean_text_file(file_path: str, remove_empty_lines: bool = False) -> str:
+    try:
+        with open(file_path, 'r', encoding='utf-8') as file:
+            if remove_empty_lines:
+                content = "\n".join(line.strip() for line in file if line.strip())
+            else:
+                content = file.read().strip()
+        return content
+    except FileNotFoundError:
+        raise FileNotFoundError(f"Not found the file <{file_path}>.")

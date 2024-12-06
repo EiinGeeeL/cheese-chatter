@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 from typing import List, Any
 from langchain_core.runnables import Runnable
 from langchain_core.tools import BaseTool
-from cheese.pipeline.services.llm_services import LLMServices
+from cheese.services.llm_services import LLMServices
 
 
 class RunnableBuilder(ABC):

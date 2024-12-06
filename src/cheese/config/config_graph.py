@@ -1,11 +1,11 @@
 from dataclasses import dataclass
 from langgraph.graph import END, START
 from langgraph.prebuilt import ToolNode
-from cheese.pipeline.services.llm_services import LLMServices
-from cheese.components.cheeseagent_runnable import CheeseAgent
+from cheese.services.llm_services import LLMServices
+from cheese.components.runnables.cheeseagent import CheeseAgent
 from cheese.components.edges.evaluators.should_continue_evaluator import ShouldContinueEvaluator
 from cheese.components.nodes.enhancers.simple_invoke_enhancer import SimpleInvokeEnhancer
-from cheese.components.tools.evolution_tool import EvolutionTool
+from cheese.components.tools.messagesvault_tool import MessagesVaultTool
 from cheese.entity.edge import ConditionalEdge, SimpleEdge
 from cheese.entity.node import SimpleNode
 
@@ -13,7 +13,7 @@ from cheese.entity.node import SimpleNode
 class ConfigGraph:
     ## RUNNABLES BUILDERS
     CHEESE_AGENT = CheeseAgent(model=LLMServices.model,
-                               tools=[EvolutionTool()])
+                               tools=[MessagesVaultTool()])
 
     ## NODES
     _NODE_1 = SimpleNode(enhancer= SimpleInvokeEnhancer(CHEESE_AGENT),
