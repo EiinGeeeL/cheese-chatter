@@ -1,4 +1,5 @@
 import yaml
+import os
 from pathlib import Path
 from typing import Dict, Optional
 
@@ -40,3 +41,28 @@ def load_and_clean_text_file(file_path: str, remove_empty_lines: bool = False) -
         return content
     except FileNotFoundError:
         raise FileNotFoundError(f"Not found the file <{file_path}>.")
+    
+def save_text_to_artifact(content: str, filename: str = None) -> None:
+    # Get the current working directory
+    current_dir = os.getcwd()
+
+    # Create 'artifacts' directory if it doesn't exist
+    artifacts_dir = 'artifacts'
+    os.makedirs(artifacts_dir, exist_ok=True)
+    
+    # Generate a filename if not provided
+    if filename is None:
+        # Use only the last part of the directory path
+        safe_dir_name = current_dir.split('\\')[-1].replace(' ', '_')
+        filename = f"artifact_{safe_dir_name}.txt"
+    else:
+        # Ensure the filename ends with .txt
+        if not filename.endswith('.txt'):
+            filename += '.txt'
+
+    # Create the full file path
+    file_path = os.path.join(artifacts_dir, filename)
+
+    # Save the string to the file
+    with open(file_path, 'w', encoding='utf-8') as f:
+        f.write(content)

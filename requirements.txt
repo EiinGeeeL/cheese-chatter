@@ -16,6 +16,7 @@ langchain-community
 langchain_experimental
 langchain_chroma
 langchain-ollama
+langchain_openai
 langgraph
 ipywidgets
 evaluate

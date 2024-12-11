@@ -3,8 +3,8 @@ few_shot_examples = [
     {
         "input": "¿Me podrías hacer un resumen de los últimos 25 mensajes?",
         "output": """
-        - Número de mensajes: 25
-        - Temas tratados:
+        - Mensajes: 25
+        - Temas generales:
             - **Cultura y entretenimiento**:
                 - 'Lucía': Recomendó un libro de ficción histórica.
                 - 'David': Habló sobre una exposición de arte que visitó el fin de semana.
@@ -15,10 +15,10 @@ few_shot_examples = [
         """
     },
     {
-        "input": "Quiero un resumen de los últimos 30 mensajes.",
+        "input": "Quiero un resumen de los últimos 50 mensajes.",
         "output": """
-        - Número de mensajes: 30
-        - Temas tratados:
+        - Mensajes: 50
+        - Temas generales:
             - **Proyectos colaborativos**:
                 - 'Andrés': Propuso un diseño inicial para el proyecto grupal.
                 - 'Clara': Aportó ideas sobre la estructura del contenido.
@@ -33,8 +33,8 @@ few_shot_examples = [
     {
         "input": "¿Puedes hacer un resumen de las últimas 18 conversaciones?",
         "output": """
-        - Número de mensajes: 18
-        - Temas principales:
+        - Mensajes: 18
+        - Temas generales:
             - **Tecnología y novedades**:
                 - 'Marta': Habló sobre las funciones del nuevo asistente de voz.
                 - 'Elena': Preguntó sobre dispositivos compatibles con esa tecnología.

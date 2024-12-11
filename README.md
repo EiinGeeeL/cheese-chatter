@@ -7,7 +7,7 @@ La aplicación construida en langchain-langgraph-langserver tiene la siguiente a
 ## Requisitos previos
 
 - Python 3.12.5
-- Ollama 4.0 o superior
+- Ollama 4.0 o superior; o .env configurada para Azure AI Deployment
 - pip (gestor de paquetes de Python)
 
 ## Instalación
@@ -35,7 +35,7 @@ La aplicación construida en langchain-langgraph-langserver tiene la siguiente a
 
 Para ejecutar el proyecto:
 
-1. Ejecutar el servicio Ollama
+1. Ejecutar el servicio Ollama (en caso de modelo en local)
 
 ```ollama run llama3.1```
 

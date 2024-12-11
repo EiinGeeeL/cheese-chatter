@@ -15,5 +15,11 @@ ollama:
   model: llama3.1
   temperature: 0
   embeddings: llama3.1
+
+azureopenai:
+  temperature: 0
+
+launch:
+  model: azureopenai
+  embeddings: ollama
   turbo_model: None
-  multimodal: None

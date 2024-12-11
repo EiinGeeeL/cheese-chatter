@@ -1,21 +1,21 @@
 system_template ="""
-    <contexto>
-    {contexto}
-    </contexto>
+<contexto>
+{contexto}
+</contexto>
 
-    <instrucciones> 
-    {instrucciones}
-    </instrucciones>
+<instrucciones> 
+{instrucciones}
+</instrucciones>
     
-    <input>
-    {input}
-    </input>
+<input>
+{input}
+</input>
     
-    <output_format>
-    {output_format}
-    </output_format>
+<output_format>
+{output_format}
+</output_format>
 
-    <restricciones>
-    {restricciones}
-    </restricciones>
+<restricciones>
+{restricciones}
+</restricciones>
 """

@@ -1,11 +1,11 @@
-# Formato de conversación
+# Formato Conversacional
 strings
 
 ---
 
-# Formato de resumen
-- Número total de mensajes analizados: [Número total de mensajes]
-- Temas tratados:
+# Formato Summarization
+- Mensajes: [Número total de mensajes]
+- Temas generales:
     **[Tema general identificado]:**
         - 'usuario1': [Resumen breve y claro del contenido enviado por 'usuario1' sobre este tema.]
         - 'usuario2': [Resumen breve y claro del contenido enviado por 'usuario2' sobre este tema.]
