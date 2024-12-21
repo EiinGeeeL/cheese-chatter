@@ -1,90 +1,88 @@
 # Cheese-Chatter
-Cheese Chatter es una app LLM preparada para integrarse en un bot de Telegram. 
-La aplicación construida en langchain-langgraph-langserver tiene la siguiente arquitectura:
+Cheese Chatter is an LLM app ready to integrate with a Telegram bot.  
+The application is built with langchain-langgraph-langserver and has the following architecture:
 
 ![alt text](/artifacts/cheese_graph.png)
 
-## Requisitos previos
+## Prerequisites
 
 - Python 3.12.5
-- Ollama 4.0 o superior; o .env configurada para Azure AI Deployment
-- pip (gestor de paquetes de Python)
+- Ollama 4.0 or higher; or a .env file configured for Azure AI Deployment
+- pip (Python package manager)
 
-## Instalación
+## Installation
 
-1. Clona el repositorio:
+1. Clone the repository:
 
-(preguntar a un administrador)
-
-2. Crea un entorno virtual:
+2. Create a virtual environment:
 
 ```py -m venv .venv```
 
-3. Activa el entorno virtual:
-- En Windows:
+3. Activate the virtual environment:
+- On Windows:
   ```.venv\Scripts\activate```
-- En macOS y Linux:
+- On macOS and Linux:
   ```source .venv/bin/activate```
 
-4. Instala las dependencias:
+4. Install the dependencies:
 
 ```pip install -r requirements.txt```
 
 
-## Ejecución
+## Running the Project
 
-Para ejecutar el proyecto:
+To run the project:
 
-1. Ejecutar el servicio Ollama (en caso de modelo en local)
+1. Start the Ollama service (if using a local model)
 
 ```ollama run llama3.1```
 
-2. Ejecutar la app LangServer
+2. Run the LangServer app
 
 ```py main.py```
 
 
-## Estructura del repositorio
+## Repository Structure
 
 ```bash
 cheese-chatter/
-├── main.py                # Archivo principal para ejecutar el proyecto
-├── app.py                 # Archivo principal para ensamblar la app
-├── runnable.ipynb         # Notebook para debugear e interacturar con el proyecto
-├── requirements.txt       # Lista de dependencias del proyecto
-├── .env                   # Variables de entorno para la configuración
-├── README.md              # Documentación del proyecto
+├── main.py                # Main file to run the project
+├── app.py                 # Main file to assemble the app
+├── runnable.ipynb         # Notebook for debugging and interacting with the project
+├── requirements.txt       # Project dependency list
+├── .env                   # Environment variables for configuration
+├── README.md              # Project documentation
 ├── src/
 │   └── cheese/
 │       ├── components/
 │       │   ├── nodes/
 │       │   ├── edges/
-│       │   │   ├── evaluators/      # Contiene StateEvaluator para conditional edges
-│       │   │   └── conditionals/    # Contiene ConditionalEdge
-│       │   ├── tools/               # Contiene BaseTool
-│       │   └──...
+│       │   │   ├── evaluators/      # Contains StateEvaluator for conditional edges
+│       │   │   └── conditionals/    # Contains ConditionalEdge
+│       │   ├── tools/               # Contains BaseTool
+│       │   └── runnables/           # Contains executable invoke files
 │       ├── utils/
 │       │   ├── common.py
 │       │   ├── logger.py
 │       │   └── type_vars.py
-│       ├── config/                  # Contiene scripts de configuración del LLMs
-│       │   └── prompt/              # Contiene los prompts.txt de configuración
-│       ├── managers/      # Contiene managers clases
-│       ├── services/      # Contiene servicios
+│       ├── config/                 
+│       │   ├── config_graph.py      # Contains the definition of graph nodes and edges
+│       │   └── runnables/           # Contains prompts and LLM configuration
+│       ├── managers/      # Contains manager classes
+│       ├── services/      # Contains services
 │       ├── entity/
-│       │   ├── models/              # Contiene modelos de estructura
-│       │   ├── node.py              # Contiene las entidades principales asociados a los nodos
-│       │   └── edge.py              # Contiene las entidades principales asociados a los edge
+│       │   ├── models/              # Contains structural models
+│       │   ├── node.py              # Contains main entities related to nodes
+│       │   └── edge.py              # Contains main entities related to edges
 │       └── constants/
-│           └── __init__.py          # Contiene las constantes del proyecto
+│           └── __init__.py          # Contains project constants
 ├── config/
-│   └── config.yaml        # Archivos de configuración principal
-├── research/              # Directorio para scripts y ipynb de experimentación
-├── tests/                 # Directorio para módulos testing
+│   └── config.yaml        # Main configuration files
+├── research/              # Directory for experimentation scripts and notebooks
+├── tests/                 # Directory for testing modules
 │   ├── integration_test/
 │   └── unit_test/
-├── artifacts/             # Directorio para archivos
-│   ├── cheese_graph.png   # Imagen de la arquitectura principal de la aplicación
-│   └── models/            # Directorio para modelos generados en research
-└── logs/                  # Directorio para logs del proyecto
-```
+├── artifacts/             # Directory for artifacts
+│   ├── cheese_graph.png   # Image of the application's main architecture
+│   └── models/            # Directory for models generated in research
+└── logs/                  # Directory for project logs

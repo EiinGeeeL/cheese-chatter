@@ -1,13 +1,13 @@
 from langchain_ollama import ChatOllama, OllamaEmbeddings
 from langchain_openai import AzureChatOpenAI
 from langchain_core.runnables import Runnable
-from cheese.constants import *
 from cheese.utils.common import read_yaml
+from cheese.constants import *
 
 class LLMServices:
     config = read_yaml(CONFIG_FILE_PATH)
     
-    # Model available
+    ## Models available
     models_dict = {
         'ollama': ChatOllama(
             model=config['ollama']['model'],
@@ -19,19 +19,20 @@ class LLMServices:
         ),
     }
 
-    # Embeddings available
+    ## Embeddings available
     embeddings_dict = {
         'ollama': OllamaEmbeddings(
             model=config['ollama']['embeddings'],
         ),
     }
 
-    # Turbo model available
+    ## Turbo model available
     turbo_models_dict = None
 
+    ## Attributes
     model: Runnable = models_dict[config['launch']['model']]
-    embeddings: Runnable = embeddings_dict[config['launch']['embeddings']]
-    turbo_model: Runnable = turbo_models_dict
+    embeddings: Runnable = None # embeddings_dict[config['launch']['embeddings']]
+    turbo_model: Runnable = None # embeddings_dict[config['launch']['turbo_model']]
 
     @classmethod
     def reinitialize(cls):

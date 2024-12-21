@@ -5,10 +5,9 @@ from cheese.entity.statehandler import StateEvaluator
 
 class EdgeManager:
     logger: logging.Logger = logging.getLogger(__name__.split('.')[-1])
-      
+    edges: set[Union[SimpleEdge, ConditionalEdge]] = set()  
+    
     def __init__(self):
-        self.edges: set[Union[SimpleEdge, ConditionalEdge]] = set()
-        
         self.logger.info("EdgeManager initialized")
 
     def add_edges(self, edges: List[Union[SimpleEdge, ConditionalEdge]]) -> None:

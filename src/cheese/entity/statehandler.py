@@ -1,13 +1,18 @@
 from abc import ABC, abstractmethod
+from typing import Literal, Any
 from langgraph.graph import StateGraph
+from langgraph.types import Command
 from cheese.entity.runnable_builder import RunnableBuilder
+from cheese.utils.common import read_yaml
+from cheese.constants import *
 
 
 class StateEvaluator(ABC):
     @abstractmethod
-    def evaluate(self, state: StateGraph) -> str:
+    def evaluate(self, state: StateGraph) -> str: 
         """
-        Returns a string as the result of the edge execution.
+        Returns a str to generate a conditional path_map to rotute the StateGraph 
+       
         """
         pass
 
@@ -20,8 +25,23 @@ class StateEnhancer(ABC):
         self.runnable = runnable_builder.get()
         
     @abstractmethod
-    def enhance(self, state: StateGraph) -> dict[str, list]:
+    def enhance(self, state: StateGraph) -> dict[Literal["message"]: list]:
         """
-        Returns state with modifications made by a Runnable.
+        Returns StateGraph with modifications made by a Runnable.
         """
+        pass
+
+class StateCommander:
+    # Nodes config to route the command
+    config_nodes: dict = read_yaml(CONFIG_NODES_FILE_PATH)
+
+    @staticmethod
+    def command(state: StateGraph(state_schema=Any)) -> Command[Literal[...]]: # type: ignore
+        """
+        Modify the StateGraph and also route with Command[Literal] to nodes. 
+        No need edges or conditional edges, the command method contain the logic routing.
+        This is usefull for Human in the Loop and Multi-Agent or Agent Supervisors apps.
+        """
+
+    # Implementation would go here
         pass

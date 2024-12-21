@@ -7,9 +7,9 @@ from langchain_core.prompts import (
 )
 from langchain_core.runnables import Runnable
 from langchain_core.tools import BaseTool
-from cheese.config.cheeseagent.history_config import history_template
-from cheese.config.cheeseagent.fewshot_config import few_shot_examples
-from cheese.config.cheeseagent.prompting_config import system_template
+from cheese.config.runnables.cheeseagent.history_template import history_template
+from cheese.config.runnables.cheeseagent.fewshot_examples import few_shot_examples
+from cheese.config.runnables.cheeseagent.prompting_template import system_template
 from cheese.entity.runnable_builder import RunnableBuilder
 from cheese.services.llm_services import LLMServices
 from cheese.utils.common import load_and_clean_text_file
@@ -38,11 +38,11 @@ class CheeseAgent(RunnableBuilder):
         )
         
         # Prepare the system_prompt
-        context = load_and_clean_text_file('src/cheese/config/cheeseagent/prompt/contexto.txt')
-        instructions = load_and_clean_text_file('src/cheese/config/cheeseagent/prompt/instrucciones.txt')
-        input = load_and_clean_text_file('src/cheese/config/cheeseagent/prompt/input.txt')
-        output_format = load_and_clean_text_file('src/cheese/config/cheeseagent/prompt/output_format.txt')
-        restrictions = load_and_clean_text_file('src/cheese/config/cheeseagent/prompt/restricciones.txt')
+        context = load_and_clean_text_file('src/cheese/config/runnables/cheeseagent/prompt/contexto.txt')
+        instructions = load_and_clean_text_file('src/cheese/config/runnables/cheeseagent/prompt/instrucciones.txt')
+        input = load_and_clean_text_file('src/cheese/config/runnables/cheeseagent/prompt/input.txt')
+        output_format = load_and_clean_text_file('src/cheese/config/runnables/cheeseagent/prompt/output_format.txt')
+        restrictions = load_and_clean_text_file('src/cheese/config/runnables/cheeseagent/prompt/restricciones.txt')
         
         system_prompt = system_template.format(
             contexto=context,

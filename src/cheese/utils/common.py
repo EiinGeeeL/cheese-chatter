@@ -3,6 +3,65 @@ import os
 from pathlib import Path
 from typing import Dict, Optional
 
+
+def _parse_yaml(data: Dict) -> Dict:
+    """
+    Replace $() expressions in a dictionary with their resolved values.
+
+    Args:
+        data (Dict): The dictionary containing the data with $() references.
+
+    Returns:
+        Dict: The dictionary with all $() expressions replaced.
+    """
+
+    def resolve_value(value, context):
+        """
+        Recursively resolve $() expressions in a value.
+
+        Args:
+            value: The value to resolve, which may be a string, list, or dict.
+            context: The dictionary context to use for resolving $() references.
+
+        Returns:
+            The resolved value.
+        """
+        if isinstance(value, str) and '$(' in value:
+            while '$(' in value:
+                start_index = value.find('$(')
+                end_index = value.find(')', start_index)
+                if end_index == -1:
+                    raise ValueError(f"Unmatched $() in value: {value}")
+
+                # Extract the reference key
+                ref_key = value[start_index + 2:end_index]
+
+                # Resolve the reference key from the context
+                ref_value = get_nested_value(context, ref_key.split('.'))
+                if ref_value is None:
+                    raise KeyError(f"Reference '{ref_key}' not found in the context.")
+
+                # Replace $() with the resolved value
+                value = value[:start_index] + str(ref_value) + value[end_index + 1:]
+            return value
+        elif isinstance(value, dict):
+            return {k: resolve_value(v, context) for k, v in value.items()}
+        elif isinstance(value, list):
+            return [resolve_value(v, context) for v in value]
+        else:
+            return value
+
+    def get_nested_value(data, keys):
+        """Retrieve a nested value from a dictionary given a list of keys."""
+        for key in keys:
+            if not isinstance(data, dict) or key not in data:
+                return None
+            data = data[key]
+        return data
+
+    return resolve_value(data, data)
+
+
 def read_yaml(path_to_yaml: Path) -> Optional[Dict]:
     """
     Read and parse a YAML file.
@@ -23,7 +82,8 @@ def read_yaml(path_to_yaml: Path) -> Optional[Dict]:
     try:
         with open(path_to_yaml, 'r') as yaml_file:
             yaml_content = yaml.safe_load(yaml_file)
-            return yaml_content
+            parsed_yaml_context = _parse_yaml(yaml_content)
+            return parsed_yaml_context
     except FileNotFoundError:
         raise FileNotFoundError(f"The configuration file '{path_to_yaml}' does not exist.")
     except yaml.YAMLError as e:

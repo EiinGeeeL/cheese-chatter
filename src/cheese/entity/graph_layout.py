@@ -4,7 +4,7 @@ from dataclasses import is_dataclass
 from typing import Annotated
 from cheese.utils.type_vars import ConfigDataclass
 from cheese.entity.edge import ConditionalEdge, SimpleEdge
-from cheese.entity.node import SimpleNode
+from cheese.entity.node import BaseNode
 from cheese.entity.runnable_builder import RunnableBuilder
 
 class GraphLayout:
@@ -19,7 +19,7 @@ class GraphLayout:
         else:
             self.config = config
 
-        logging.info('GraphLayout initialized')
+        self.logger.info('GraphLayout initialized')
         
     def get_nodes(self):
         """
@@ -28,7 +28,7 @@ class GraphLayout:
         return [
             attr_value 
             for attr_value in self.config.__dict__.values() 
-            if isinstance(attr_value, (SimpleNode, ToolNode))
+            if isinstance(attr_value, (BaseNode, ToolNode))
         ]
 
     def get_edges(self):

@@ -1,0 +1,17 @@
+NODE_1:
+  name: cheeseagent
+  type: enhancer
+  description: This is the main node. With bind tools of summarization to creare a resume of a chat. This is not a supervisors.
+
+NODE_2:
+  name: cheesetools
+  type: tools
+  description: Main tools for being used by NODE_1.
+
+NODE_3:
+  name: human_review
+  type: commander
+  route: 
+    enhancer: $(NODE_1.name)
+    tools: $(NODE_2.name)
+  description: This is a command node that routes to an enhancer and tools node modifying the state for human in the loop.

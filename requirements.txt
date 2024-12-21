@@ -19,9 +19,5 @@ langchain-ollama
 langchain_openai
 langgraph
 ipywidgets
-evaluate
-tiktoken
-textstat 
-nltk
-rouge_score
+setuptools
 -e .
