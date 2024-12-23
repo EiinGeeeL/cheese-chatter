@@ -1,8 +1,10 @@
+from dataclasses import dataclass
 from pydantic import BaseModel, Field
 from typing import Type
 
 class CustomBaseTool:
     class MessagesVaultToolConfig:
+        @dataclass
         class Input(BaseModel):
             """
             Input for the MessagesVaultTool
