@@ -1,23 +1,17 @@
 PyYAML
 fastapi
 uvicorn
-sse_starlette
-beautifulsoup4
-lark
-neo4j
-tensorflow
-mlflow
 numpy
 pandas
 matplotlib
-langserve
+ipywidgets
+setuptools
 langchain
 langchain-community
 langchain_experimental
-langchain_chroma
 langchain-ollama
 langchain_openai
 langgraph
-ipywidgets
-setuptools
+langserve
+sse_starlette
 -e .

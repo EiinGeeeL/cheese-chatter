@@ -1,5 +1,5 @@
 package:
-  version: 0.1
+  version: 0.2
   repo_name: cheese-chatter
   src_repo: cheese
   author_email: aangel.maragones@outlook.com
@@ -14,7 +14,6 @@ logging:
 ollama:
   model: llama3.1
   temperature: 0
-  embeddings: llama3.1
 
 azureopenai:
   temperature: 0

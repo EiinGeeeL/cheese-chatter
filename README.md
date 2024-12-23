@@ -1,13 +1,13 @@
 # Cheese-Chatter
 Cheese Chatter is an LLM app ready to integrate with a Telegram bot.  
-The application is built with langchain-langgraph-langserver and has the following architecture:
+The application is built with langchain-langgraph-~~langserver~~ and has the following architecture:
 
 ![alt text](/artifacts/cheese_graph.png)
 
 ## Prerequisites
 
 - Python 3.12.5
-- Ollama 4.0 or higher; or a .env file configured for Azure AI Deployment
+- Ollama 4.0 or higher; or a .env file configured for Azure OpenAI Deployment
 - pip (Python package manager)
 
 ## Installation
@@ -16,7 +16,7 @@ The application is built with langchain-langgraph-langserver and has the followi
 
 2. Create a virtual environment:
 
-```py -m venv .venv```
+    ```py -m venv .venv```
 
 3. Activate the virtual environment:
 - On Windows:
@@ -26,20 +26,42 @@ The application is built with langchain-langgraph-langserver and has the followi
 
 4. Install the dependencies:
 
-```pip install -r requirements.txt```
+    ```pip install -r requirements.txt```
 
 
 ## Running the Project
 
 To run the project:
 
-1. Start the Ollama service (if using a local model)
+1. Config your LLM
 
-```ollama run llama3.1```
+   Choose one of the following options:
 
-2. Run the LangServer app
+   #### 1.1 Using a local model with Ollama
+   Start the Ollama service by running 
+   
+   ```ollama run llama3.1```
+  
+   #### 1.2 Using AzureChatOpenAI
+    Config all your model variables in your ```.env```
 
-```py main.py```
+
+
+2. ~~Run the LangServer app~~ ```py main.py``` (DEPRECATED BY COMMAND UPDATE) 
+
+3. Instead of LangServer compile the graph mannually
+
+    You can check ```runnable.ipynb``` for more information.
+```python
+from langgraph.types import Command
+from cheese.workflow_builder import WorkflowBuilder
+from cheese.config.config_graph import ConfigGraph
+
+# Workflow Configuration
+workflow_builder = WorkflowBuilder(config=ConfigGraph)
+graph = workflow_builder.compile()
+workflow_builder.display_graph(save=True, filepath="artifacts/graph.png")
+```
 
 
 ## Repository Structure
@@ -86,3 +108,4 @@ cheese-chatter/
 │   ├── cheese_graph.png   # Image of the application's main architecture
 │   └── models/            # Directory for models generated in research
 └── logs/                  # Directory for project logs
+```

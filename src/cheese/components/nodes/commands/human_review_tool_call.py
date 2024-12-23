@@ -18,7 +18,7 @@ class HumanReviewToolCall(StateCommander):
         # this is the value we'll be providing via Command(resume=<human_review>)
         human_review = interrupt(
             {
-                "question": "¿Estás seguro?",
+                "question": "¿Estás seguro de eso?",
                 # Surface tool calls for review
                 "tool_call": tool_call,
             }

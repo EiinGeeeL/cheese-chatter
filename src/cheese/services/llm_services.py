@@ -20,11 +20,7 @@ class LLMServices:
     }
 
     ## Embeddings available
-    embeddings_dict = {
-        'ollama': OllamaEmbeddings(
-            model=config['ollama']['embeddings'],
-        ),
-    }
+    embeddings_dict = None
 
     ## Turbo model available
     turbo_models_dict = None
