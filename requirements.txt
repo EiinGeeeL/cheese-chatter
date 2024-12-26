@@ -12,6 +12,5 @@ langchain_experimental
 langchain-ollama
 langchain_openai
 langgraph
-langserve
-sse_starlette
+langgraph-cli[inmem]
 -e .

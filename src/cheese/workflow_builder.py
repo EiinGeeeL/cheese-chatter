@@ -1,12 +1,11 @@
 import logging
 from dataclasses import is_dataclass
-from typing import Annotated
+from typing import Annotated, Type, Any
 from cheese.utils.type_vars import ConfigDataclass
 from IPython.display import Image, display
 from langgraph.graph import StateGraph
-from langgraph.checkpoint.memory import MemorySaver
+from langgraph.graph.state import CompiledStateGraph
 from cheese.entity.graph_layout import GraphLayout
-from cheese.entity.models.stategraph import AgentState
 from cheese.managers.edge_manager import EdgeManager
 from cheese.managers.node_manager import NodeManager
 
@@ -14,16 +13,16 @@ from cheese.managers.node_manager import NodeManager
 class WorkflowBuilder:
     logger: logging.Logger = logging.getLogger(__name__.split('.')[-1])
     
-    def __init__(self, config: Annotated[ConfigDataclass, is_dataclass]):
-        self.workflow: StateGraph = StateGraph(AgentState)
-        self.memory: MemoryError = MemorySaver()
+    def __init__(self, config: Annotated[ConfigDataclass, is_dataclass], state_schema: Type[Any], input: Type[Any], output: Type[Any], checkpointer: Type[Any]):
+        self.workflow: StateGraph = StateGraph(state_schema=state_schema, input=input, output=output)
+        self.memory: Type[Any] = checkpointer
         self.config: GraphLayout = GraphLayout(config)
         self.edge_manager: EdgeManager = EdgeManager()
         self.node_manager: NodeManager = NodeManager()
         
         self.logger.info("WorkFlowBuilder initialized")
 
-    def compile(self) -> StateGraph:
+    def compile(self) -> CompiledStateGraph:
         self._configure_workflow()
         return self.workflow.compile(checkpointer=self.memory)
     

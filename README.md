@@ -1,14 +1,14 @@
 # Cheese-Chatter - State Oriented Project
 Cheese Chatter is an LLM app ready to integrate with a Telegram bot. This project has a structure designed for high scalability, reusability and customization of Graphs and Subgraphs. The refactoring is oriented to StateHandlerClasses, which are responsible of modifications in the GraphState by Runnables and Commands.
 
-The application is built with langchain-langgraph-~~langserver~~ and has the following architecture captured by each run:
+The application is built with langchain-langgraph and deploy in LangGraph Platform. The graph has the following architecture captured by each run:
 
 ![alt text](/artifacts/cheese_graph.png)
 
 ## Prerequisites
 
 - Python 3.12.5
-- Ollama 4.0 or higher; or a .env file configured for Azure OpenAI Deployment
+- Ollama 4.0 or higher (free); or an Azure OpenAI Deployment (payment)
 - pip (Python package manager)
 
 ## Installation
@@ -34,7 +34,7 @@ The application is built with langchain-langgraph-~~langserver~~ and has the fol
 
 To run the project:
 
-1. Config your LLM
+1. Set LLM Services
 
    Choose one of the following options:
 
@@ -46,24 +46,15 @@ To run the project:
    #### 1.2 Using AzureChatOpenAI
     Config all your model variables in your ```.env```
 
+    ```cp .env.example .env```
 
+2. Run the LangGraph Platforms app 
 
-2. ~~Run the LangServer app~~ ```py main.py``` (DEPRECATED BY COMMAND UPDATE) 
+    ```py main.py``` 
 
-3. Instead of LangServer compile the graph mannually
+3. Compile the graph mannually
 
     You can check ```runnable.ipynb``` for more information.
-```python
-from langgraph.types import Command
-from cheese.workflow_builder import WorkflowBuilder
-from cheese.config.config_graph import ConfigGraph
-
-# Workflow Configuration
-workflow_builder = WorkflowBuilder(config=ConfigGraph)
-graph = workflow_builder.compile()
-workflow_builder.display_graph(save=True, filepath="artifacts/graph.png")
-```
-
 
 ## Repository Structure
 

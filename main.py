@@ -1,8 +1,8 @@
 #!/usr/bin/env python
-import uvicorn
-from app import app
+import subprocess
 
 #%%
 ## Main Execution
 if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    command = ["langgraph", "dev", "--port", "8000", "--host", "0.0.0.0"]
+    subprocess.run(command, check=True)
