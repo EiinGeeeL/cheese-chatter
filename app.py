@@ -21,7 +21,6 @@ workflow_builder = WorkflowBuilder(
     input=InputState, 
     output=OutputState,
     checkpointer=MemorySaver(),
-    name=config['package']['repo_name']
 )
 main_graph = workflow_builder.compile() # compile the graph
 workflow_builder.display_graph(save=True, filepath="artifacts/cheese_graph.png") # update the graph artifact
