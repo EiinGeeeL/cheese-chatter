@@ -5,6 +5,7 @@ numpy
 pandas
 matplotlib
 ipywidgets
+ipykernel
 setuptools
 langchain
 langchain-community
@@ -13,4 +14,3 @@ langchain-ollama
 langchain_openai
 langgraph
 langgraph-cli[inmem]
--e .

@@ -12,6 +12,7 @@ list_of_files = [
     f"src/{project_name}/components/nodes/__init__.py",
     f"src/{project_name}/components/edges/__init__.py",
     f"src/{project_name}/components/tools/__init__.py",
+    f"src/{project_name}/components/runnables/__init__.py",
     f"src/{project_name}/utils/__init__.py",
     f"src/{project_name}/config/__init__.py",
     f"src/{project_name}/config/config_graph.py",

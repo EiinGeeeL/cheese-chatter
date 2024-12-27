@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=75.6.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+dynamic = ["dependencies"]
+name = "cheese"
+version = "0.2.0"
+description = "Cheese Chatter is an LLM app prepared to be used by a Telegram bot."
+readme = { file = "README.md", content-type = "text/markdown" }
+requires-python = ">=3.12.5"
+authors = [
+    { name = "eiingeeel", email = "aangel.maragones@outlook.com" }
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent"
+]
+keywords = ["LLM", "fastapi", "langgraph", "langgraph_platform", "langchain"]
+
+[project.urls]
+homepage = "https://github.com/eiingeeel/cheese-chatter"
+issues = "https://github.com/eiingeeel/cheese-chatter/issues"
+
+[tool.setuptools.dynamic]
+dependencies = {file = ["requirements.txt"]}
+[tool.setuptools.packages.find]
+where = ["src"]  # list of folders that contain the packages (["."] by default)
+include = ["**"]  # package names should match these glob patterns (["*"] by default)
+namespaces = false  # to disable scanning PEP 420 namespaces (true by default)

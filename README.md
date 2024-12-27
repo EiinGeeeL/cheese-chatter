@@ -27,9 +27,9 @@ The Graph has the following architecture captured by each run:
 - On macOS and Linux:
   ```source .venv/bin/activate```
 
-4. Install the dependencies:
+4. Install the project:
 
-    ```pip install -r requirements.txt```
+    ```py -m pip install -e .``
 
 
 ## Running the Project
