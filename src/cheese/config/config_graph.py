@@ -12,6 +12,7 @@ from cheese.entity.node import SimpleNode, CommandNode
 from cheese.utils.common import read_yaml
 from cheese.constants import *
 
+# TODO Here you can add another subgraphs as nodes
 
 @dataclass(frozen=True)
 class ConfigGraph:

@@ -83,6 +83,7 @@ cheese-chatter/
 │       │   └── type_vars.py
 │       ├── config/                 
 │       │   ├── config_graph.py      # Contains the definition of graph nodes and edges
+│       │   ├── subgraps/            # Contain subgraphs to be implemented as nodes
 │       │   └── runnables/           # Contains prompts and LLM configuration
 │       ├── managers/      # Contains manager classes
 │       ├── services/      # Contains services

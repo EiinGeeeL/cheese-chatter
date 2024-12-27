@@ -6,4 +6,8 @@ WORKDIR /app
 COPY . /app
 RUN pip install -r requirements.txt
 
-CMD ["python3", "main.py"]
+# Expose the necessary port
+EXPOSE 8000
+
+# Set default command to run the app
+CMD ["langgraph", "dev", "--port", "8000", "--host", "0.0.0.0"]

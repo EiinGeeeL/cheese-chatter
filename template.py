@@ -18,6 +18,7 @@ list_of_files = [
     f"src/{project_name}/config/config_graph.py",
     f"src/{project_name}/config/config_nodes.yml",
     f"src/{project_name}/config/runnables/__init__.py",
+    f"src/{project_name}/config/subgraphs/__init__.py",
     f"src/{project_name}/managers/__init__.py",
     f"src/{project_name}/services/__init__.py",
     f"src/{project_name}/entity/__init__.py",
