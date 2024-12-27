@@ -19,7 +19,7 @@ The Graph has the following architecture captured by each run:
 
 2. Create a virtual environment:
 
-    ```py -m venv .venv```
+    ```python3 -m venv .venv```
 
 3. Activate the virtual environment:
 - On Windows:
@@ -29,7 +29,7 @@ The Graph has the following architecture captured by each run:
 
 4. Install the project:
 
-    ```py -m pip install -e .``
+    ```python3 -m pip install -e .``
 
 
 ## Running the Project
@@ -52,7 +52,7 @@ To run the project:
 
 2. Run the LangGraph Platforms app 
 
-    ```py main.py``` 
+    ```make run-app``` 
 
 3. Compile the graph mannually
 
