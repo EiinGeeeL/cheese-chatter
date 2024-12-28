@@ -1,7 +1,7 @@
 # Cheese-Chatter - State Oriented Project
 Cheese Chatter is an LLM app ready to integrate with a Telegram bot. The application is built with langchain-langgraph and deploy in a local server using LangGraph Platform.
 
-This project has a structure designed for high scalability, reusability and customization of Graphs and Subgraphs. The refactoring is oriented to StateHandlerClasses, which are responsible of modifications of the GraphState by Runnables and Commands. 
+This project has a structure designed for high scalability, reusability and customization of Graphs and Subgraphs. The refactoring is oriented to StateHandlerClasses, which are responsible of modifications of the GraphState by Runnables, Commands and Subgraphs. 
 
 The Graph has the following architecture captured by each run:
 
@@ -83,7 +83,7 @@ cheese-chatter/
 │       │   └── type_vars.py
 │       ├── config/                 
 │       │   ├── config_graph.py      # Contains the definition of graph nodes and edges
-│       │   ├── subgraps/            # Contain subgraphs to be implemented as nodes
+│       │   ├── subgraphs/           # Contain subgraphs to be implemented as nodes
 │       │   └── runnables/           # Contains prompts and LLM configuration
 │       ├── managers/      # Contains manager classes
 │       ├── services/      # Contains services
