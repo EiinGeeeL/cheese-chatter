@@ -4,7 +4,7 @@ RUN apt update -y
 WORKDIR /app
 
 COPY . /app
-RUN pip install -r requirements.txt
+RUN python3 -m pip install -e .
 
 # Expose the necessary port
 EXPOSE 8000
