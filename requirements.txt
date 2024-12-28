@@ -1,6 +1,4 @@
 PyYAML
-fastapi
-uvicorn
 numpy
 pandas
 matplotlib
