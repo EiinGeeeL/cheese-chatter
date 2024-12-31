@@ -29,7 +29,7 @@ The Graph has the following architecture captured by each run:
 
 4. Install the project:
 
-    ```python3 -m pip install -e .``
+    ```python3 -m pip install -e .```
 
 
 ## Running the Project
